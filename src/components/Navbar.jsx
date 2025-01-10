@@ -25,7 +25,7 @@ const Navbar = () => {
       <img
         src={menu_open}
         onClick={openmenu}
-        alt="logo"
+        alt="menu open"
         className="nav-mob-open"
       />
 

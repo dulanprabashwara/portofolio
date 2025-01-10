@@ -6,7 +6,9 @@ import location_icon from "../../assets/assets/location_icon.svg";
 import theme_pattern from "../../assets/assets/theme_pattern.svg";
 
 const Contact = () => {
-  const onSubmit = async (event) => {
+  const [result, setResult] = React.useState("");
+
+  const onsubmit = async (event) => {
     event.preventDefault();
     setResult("Sending....");
     const formData = new FormData(event.target);
@@ -17,6 +19,16 @@ const Contact = () => {
       method: "POST",
       body: formData,
     });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setResult("Form Submitted Successfully");
+      event.target.reset();
+    } else {
+      console.log("Error", data);
+      setResult(data.message);
+    }
   };
 
   return (
@@ -48,7 +60,7 @@ const Contact = () => {
             </div>
           </div>
         </div>
-        <form onSubmi={onsubmit} action="" className="contact-right">
+        <form onSubmit={onsubmit} action="" className="contact-right">
           <label htmlFor="name">Name</label>
           <input type="text" placeholder="Enter your name" name="name" />
           <label htmlFor="email">Email</label>
